@@ -41,6 +41,7 @@ Additional log4j2 dependencies:
         </dependency>
 ```
 
+Code example:
 ```java
     @Log4j2Context
     public void methodWithContext(
