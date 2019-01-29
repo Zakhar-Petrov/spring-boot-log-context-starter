@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console">
+            <PatternLayout pattern="%d{DEFAULT} %p [%t] - %m%n"/>
+        </Console>
+        <Console name="ContextOut">
+            <PatternLayout pattern="%d{DEFAULT} %p [%t] - %m (Message length: %X{length})%n%X%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+        <Logger level="info" additivity="false" name="ru.zpetrov.log.context.sample.service.LoggingService">
+            <AppenderRef ref="ContextOut"/>
+        </Logger>
+    </Loggers>
+</Configuration>
