@@ -38,13 +38,16 @@ class ContextBuilder {
 
     private String getContextFieldValue(Parameter parameter, Object argumentValue) {
         String expression = parameter.getAnnotation(ContextItem.class).expression();
-        if (expression.isEmpty()) {
-            return argumentValue.toString();
+        if (!expression.isEmpty()) {
+            argumentValue = invokeExpression(argumentValue, expression);
         }
+        return argumentValue == null ? "<null>" : argumentValue.toString();
+    }
+
+    private Object invokeExpression(Object argumentValue, String expression) {
         EvaluationContext context = new StandardEvaluationContext(argumentValue);
         Expression exp = new SpelExpressionParser().parseExpression(expression);
-        Object value = exp.getValue(context);
-        return value == null ? "" : value.toString();
+        return exp.getValue(context);
     }
 
     private String getContextFieldName(Parameter parameter) {

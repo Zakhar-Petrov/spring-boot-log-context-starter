@@ -87,7 +87,13 @@ public class ContextBuilderTest {
                     public void testDataMethod_contextArgumentWithNullResultExpression(@ContextItem(value = "supplierTestKey", expression = "#this.get()") Supplier<Object> arg) {}
                 })
                         .withArgument((Supplier) () -> null)
-                        .withExpectedEntry("supplierTestKey", ""),
+                        .withExpectedEntry("supplierTestKey", "<null>"),
+
+                TestParameter.forMethod(new Object() {
+                    public void testDataMethod_nullContextArgument(@ContextItem(value = "supplierTestKey") Object arg) {}
+                })
+                        .withArgument(null)
+                        .withExpectedEntry("supplierTestKey", "<null>"),
                 });
     }
 
